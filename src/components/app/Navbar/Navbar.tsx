@@ -54,6 +54,9 @@ const Navbar: FC = observer(() => {
                             <div className={s.navbar__link}>
                                 <Link className={s.navbar__link_a} to={'/users'}>Список пользователей</Link>
                             </div>
+                            <div className={s.navbar__link}>
+                                <Link className={s.navbar__link_a} to={'/projects-for-checking'}>Курсовые и дипломные проекты</Link>
+                            </div>
                         </div>
                     )
                 }

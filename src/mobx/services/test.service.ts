@@ -7,8 +7,9 @@ const getAllCourseByStudentId = (user_id: number) => {
     return axios.get(`${host}/course-project/get-projects-by-student/${user_id}`)
 }
 
+
 const CourseService = {
-    getAllCourseByStudentId
+    getAllCourseByStudentId,
 }
 
 export default CourseService;

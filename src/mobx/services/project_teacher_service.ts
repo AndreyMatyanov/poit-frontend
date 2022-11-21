@@ -8,12 +8,12 @@ const getGraduateProjectByStudentId = (user_id: number) => {
 }
 
 const getGraduateProjectsByUserTeacherId = (user_id: number) => {
-    return axios.get(`${host}/graduation-project/get-by-user-teacher-id/${user_id}`)
+    return axios.get(`${host}/graduation-project/get-by-user-teacher-id/{user_id}`)
 }
 
-const DiplomeService = {
+const CourseService = {
     getGraduateProjectByStudentId,
     getGraduateProjectsByUserTeacherId
 }
 
-export default DiplomeService;
+export default CourseService;

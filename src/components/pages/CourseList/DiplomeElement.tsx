@@ -1,5 +1,8 @@
 import React, {FC} from 'react';
 import {Accordion, ProgressBar} from "react-bootstrap";
+import CircularProgress, {
+    CircularProgressProps,
+} from '@mui/material/CircularProgress';
 
 export interface IGraduationProject {
     id: number | undefined,
@@ -25,11 +28,10 @@ const GraduateElement: FC<IGraduationProject> = ({id, user_student_id, percent_o
             <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>
+                        <CircularProgress variant="determinate" value={percent_of_completion != undefined? (percent_of_completion * 100) : (percent_of_completion)} />
                         Тема: {theme}
-                        <ProgressBar now={percent_of_completion != undefined? (percent_of_completion * 100) : (percent_of_completion)} label={`${percent_of_completion != undefined? (percent_of_completion * 100) : (percent_of_completion)}%`} visuallyHidden />
                     </Accordion.Header>
                     <Accordion.Body>
-                        <ProgressBar now={percent_of_completion} label={`${percent_of_completion}%`} visuallyHidden />
                         {stages?.map(stage => (
                             <div>
                                 <Accordion>

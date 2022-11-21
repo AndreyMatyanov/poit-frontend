@@ -1,6 +1,7 @@
 import React, {FC, ReactNode} from 'react';
 import {Accordion, ProgressBar} from 'react-bootstrap';
 import {ICourseProjectStage, IDiscipline} from "../../../interfaces/course/ICourseProject";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface ICourseProject {
     id: number,
@@ -24,8 +25,8 @@ const CourseList: FC<ICourseList> = ({projects}) => {
                     <Accordion defaultActiveKey="0">
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>
+                                <CircularProgress variant="determinate" value={test.percent_of_complete != undefined? (test.percent_of_complete * 100) : (test.percent_of_complete)} />
                                 {test.discipline.discipline_name}
-                                <ProgressBar now={test.percent_of_complete} label={`${test.percent_of_complete}%`} visuallyHidden />
                             </Accordion.Header>
                             <Accordion.Body>
                                 <ProgressBar now={test.percent_of_complete} label={`${test.percent_of_complete}%`} visuallyHidden />

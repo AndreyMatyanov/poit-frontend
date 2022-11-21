@@ -9,6 +9,7 @@ import Profile from "./components/pages/Profile/Profile";
 import UserList from "./components/pages/UserList/UserList";
 import ProjectList from "./components/pages/ProjectsList/ProjectList";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TeacherProjectsChecking from "./components/pages/TeacherProjectsChecking/TeacherProjectsChecking";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
                   <Route path={'/admin/*'} element={<AdminPage/>}/>
                   <Route path="*" element={<h2>Ресурс не найден</h2>} />
                   <Route path={'/projects/:id'} element={<ProjectList/>} />
+                  <Route path={'/projects-for-checking'} element={<TeacherProjectsChecking/>}/>
               </Routes>
           </div>
           <Footer/>
