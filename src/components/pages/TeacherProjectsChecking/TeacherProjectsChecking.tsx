@@ -19,8 +19,8 @@ const TeacherProjectsChecking: FC = () => {
     return (
         <div>
             <h3>Курсовые проекты</h3>
-            <TeacherDiplomeProjectsList projects={diplomes}/>
             <h3>Дипломные проекты</h3>
+            <TeacherDiplomeProjectsList projects={diplomes}/>
         </div>
     );
 };
