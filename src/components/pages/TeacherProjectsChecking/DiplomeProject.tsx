@@ -1,14 +1,17 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {IGraduationProject} from "../CourseList/DiplomeElement";
-import {Accordion, Button, Dropdown, Modal} from "react-bootstrap";
+import {Accordion, Button, Dropdown} from "react-bootstrap";
+import Modal from 'react-bootstrap/Modal';
 import CircularProgress from "@mui/material/CircularProgress";
 import UserStore, {IUser} from "../../../mobx/stores/user.store";
 import s from './TeacherProjectsCheckking.module.sass'
 import DiplomeService from "../../../mobx/services/diplom.service";
+import EditDiplomeModal from "./EditDiplomeModal";
+import DiplomeStage from "./DiplomeStage";
 
 const DiplomeProject: FC<IGraduationProject> = ({id, user_student_id, percent_of_completion, theme, pattern_of_education, stages}) => {
     const [user_student, setUserStudent] = useState<IUser>()
-    const [modalDiplomeEditShow, setModalDiplomeEditShow] = useState(false);
+    const [isModalDiplomeEditShow, setIsModalDiplomeEditShow] = useState(false);
 
 
     useEffect(() => {
@@ -20,6 +23,14 @@ const DiplomeProject: FC<IGraduationProject> = ({id, user_student_id, percent_of
             DiplomeService.setIsDoneForStage(stage_id).then(data => console.log(data.data))
         }
     }
+
+    const {current: handleOpenModal} = useRef(() => {
+        setIsModalDiplomeEditShow(true)
+    })
+
+    const {current: handleCloseModal} = useRef(() => {
+        setIsModalDiplomeEditShow(false)
+    })
 
     return (
         <div>
@@ -42,86 +53,38 @@ const DiplomeProject: FC<IGraduationProject> = ({id, user_student_id, percent_of
                                     Методические указания:
                                 </div>
                                 <div>
-                                    <button type="button" className="btn btn-default" onClick={() => setModalDiplomeEditShow(true)}>
+                                    <button type="button" className="btn btn-default" onClick={() => setIsModalDiplomeEditShow(true)}>
                                         <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                     </button>
                                 </div>
                             </div>
                             {stages?.map(stage => (
-                                <div>
-                                    <Accordion>
-                                        <Accordion.Item eventKey={String(stage.id)}>
-                                            <Accordion.Header>
-                                                {stage.title}
-                                            </Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className={s.title_diplome}>
-                                                    <div>
-                                                        <div>{stage.description}</div>
-                                                        <div>СТАТУС: {stage.is_done ? (<>Сделано</>): (<>Не сделано</>)}</div>
-                                                        <div>{stage.deadline_date}</div>
-                                                    </div>
-                                                    <div>
-                                                        <Dropdown>
-                                                            <Dropdown.Toggle variant="info" id="dropdown-basic">
-                                                                Настройки стадии
-                                                            </Dropdown.Toggle>
-
-                                                            <Dropdown.Menu>
-                                                                <Dropdown.Item href="#/action-1">Редактировать</Dropdown.Item>
-                                                                <Dropdown.Item href="#/action-2">Удалить</Dropdown.Item>
-                                                                <Dropdown.Item onClick={() => {
-                                                                    handleSetIsDone(stage.id)
-                                                                }}>{!stage.is_done ? (<p>Завершить</p>) : (<p>Отменить</p>)}</Dropdown.Item>
-                                                            </Dropdown.Menu>
-                                                        </Dropdown>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
-                                    </Accordion>
-                                </div>
+                                <DiplomeStage
+                                    id={stage.id}
+                                    graduation_project_id={stage.graduation_project_id}
+                                    title={stage.title}
+                                    description={stage.description}
+                                    is_done={stage.is_done}
+                                    deadline_date={stage.deadline_date}
+                                />
                             ))}
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>
-            <Modal show={modalDiplomeEditShow} onHide={() => setModalDiplomeEditShow(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setModalDiplomeEditShow(false)}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={() => setModalDiplomeEditShow(false)}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <EditDiplomeModal
+                isModalOpened={isModalDiplomeEditShow}
+                handleOpenModal={handleOpenModal}
+                handleCloseModal={handleCloseModal}
+                id={id}
+                updateGraduationProject={{
+                    user_student_id: user_student_id,
+                    percent_of_completion: percent_of_completion,
+                    pattern_of_education: pattern_of_education,
+                    theme: theme,
+                }}
+            />
         </div>
     );
 };
 
 export default DiplomeProject;
-
-class MydModalWithGrid extends React.Component<{ show: any, onHide: any }> {
-    render() {
-        let {show, onHide} = this.props;
-        return (
-            <Modal show={show} aria-labelledby="contained-modal-title-vcenter">
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Using Grid in Modal
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="show-grid">
-
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={onHide}>Close</Button>
-                </Modal.Footer>
-            </Modal>
-        );
-    }
-}
