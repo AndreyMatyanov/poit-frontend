@@ -8,6 +8,8 @@ import s from './TeacherProjectsCheckking.module.sass'
 import DiplomeService from "../../../mobx/services/diplom.service";
 import EditDiplomeModal from "./EditDiplomeModal";
 import DiplomeStage from "./DiplomeStage";
+import { RingProgress, Text, ThemeIcon, Center } from '@mantine/core';
+import { IconCheck } from '@tabler/icons';
 
 const DiplomeProject: FC<IGraduationProject> = ({id, user_student_id, percent_of_completion, theme, pattern_of_education, stages}) => {
     const [user_student, setUserStudent] = useState<IUser>()
@@ -37,7 +39,28 @@ const DiplomeProject: FC<IGraduationProject> = ({id, user_student_id, percent_of
                 <Accordion defaultActiveKey="0">
                     <Accordion.Item eventKey="0">
                         <Accordion.Header>
-                            <CircularProgress variant="determinate" value={percent_of_completion != undefined? (percent_of_completion * 100) : (percent_of_completion)} />
+                            {percent_of_completion == 100 ? (<RingProgress
+                                size={40}
+                                thickness={2}
+                                roundCaps
+                                sections={[{ value: percent_of_completion ? Math.round(percent_of_completion * 100) : 0, color: 'blue' }]}
+                                label={
+                                    <Text color="blue" weight={400} align="center" size="xs">
+                                        {percent_of_completion ? Math.round(percent_of_completion * 100) : 0}%
+                                    </Text>
+                                }
+                            />) : (<RingProgress
+                                sections={[{ value: 100, color: 'teal' }]}
+                                size={40}
+                                thickness={2}
+                                label={
+                                    <Center>
+                                        <ThemeIcon color="teal" variant="light" radius="xl" size="xs">
+                                            <IconCheck size={22} />
+                                        </ThemeIcon>
+                                    </Center>
+                                }
+                            />)}
                             <div className={s.title_diplome}>
                                 <div>
                                     Тема: {theme}
