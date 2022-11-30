@@ -25,7 +25,7 @@ class UserService {
     }
 
     getTeacherList = async () => {
-        return axios.get(`${host}/user/get-by-rol/teacher`).then(data => data.data)
+        return axios.get(`${host}/graduation-project/get-all-teachers-projects`).then(data => data.data)
     }
 }
 

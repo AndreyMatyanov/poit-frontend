@@ -1,7 +1,17 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import TeacherProjectTable from "./TeacherProjectTable";
+import UserStore from "../../../mobx/stores/user.store";
 
 const TeacherProjectList: FC = () => {
+    const [teachersWithProject, setTeachersWithProject] = useState()
+
+    useEffect(() => {
+       UserStore.getTeachersList().then(date => setTeachersWithProject(date))
+    },[])
+    
+    useEffect(() => {
+        console.log(teachersWithProject)
+    },[teachersWithProject])
 
     const ths = (
         <tr>
