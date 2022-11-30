@@ -8,7 +8,7 @@ import s from './TeacherProjectsCheckking.module.sass'
 import DiplomeService from "../../../mobx/services/diplom.service";
 import EditDiplomeModal from "./EditDiplomeModal";
 import DiplomeStage from "./DiplomeStage";
-import { RingProgress, Text, ThemeIcon, Center } from '@mantine/core';
+import { RingProgress, Text, ThemeIcon, Center, Timeline } from '@mantine/core';
 import { IconCheck } from '@tabler/icons';
 
 const DiplomeProject: FC<IGraduationProject> = ({id, user_student_id, percent_of_completion, theme, pattern_of_education, stages}) => {
@@ -81,6 +81,15 @@ const DiplomeProject: FC<IGraduationProject> = ({id, user_student_id, percent_of
                                     </button>
                                 </div>
                             </div>
+                            {/*<Timeline>*/}
+                            {/*    {stages?.map(stage => (*/}
+                            {/*        <Timeline.Item title={stage.title}>*/}
+                            {/*            <Text color="dimmed" size="sm">{stage.description}</Text>*/}
+                            {/*            <Text size="xs" mt={4}>{stage.deadline_date}</Text>*/}
+                            {/*        </Timeline.Item>*/}
+                            {/*    ))}*/}
+                            {/*</Timeline>*/}
+                            <Timeline>
                             {stages?.map(stage => (
                                 <DiplomeStage
                                     id={stage.id}
@@ -91,6 +100,7 @@ const DiplomeProject: FC<IGraduationProject> = ({id, user_student_id, percent_of
                                     deadline_date={stage.deadline_date}
                                 />
                             ))}
+                            </Timeline>
                         </Accordion.Body>
                     </Accordion.Item>
                 </Accordion>

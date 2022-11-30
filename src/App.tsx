@@ -8,8 +8,10 @@ import AdminPage from "./components/pages/Admin/Admin";
 import Profile from "./components/pages/Profile/Profile";
 import UserList from "./components/pages/UserList/UserList";
 import ProjectList from "./components/pages/ProjectsList/ProjectList";
+import Notification from "./components/pages/Notification/Notification"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TeacherProjectsChecking from "./components/pages/TeacherProjectsChecking/TeacherProjectsChecking";
+import TeacherProjectList from "./components/pages/TeacherProjects/TeacherProjectList";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
                   <Route path="*" element={<h2>Ресурс не найден</h2>} />
                   <Route path={'/projects/:id'} element={<ProjectList/>} />
                   <Route path={'/projects-for-checking'} element={<TeacherProjectsChecking/>}/>
+                  <Route path={'/notification'} element={<Notification/>}/>
+                  <Route path={'/course-table'} element={<TeacherProjectList/>}/>
               </Routes>
           </div>
           <Footer/>

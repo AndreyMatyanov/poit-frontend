@@ -71,6 +71,11 @@ class UserStore {
     getAllUsers = async () => {
         return this.userService.getAllUsers()
     }
+
+    getTeachersList = async () => {
+        return this.userService.getTeacherList()
+    }
+
 }
 
 export default new UserStore()

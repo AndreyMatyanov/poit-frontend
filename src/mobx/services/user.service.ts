@@ -23,6 +23,10 @@ class UserService {
     getAllUsers = async () => {
         return fetch(`${host}/user/`).then(data => data.json())
     }
+
+    getTeacherList = async () => {
+        return axios.get(`${host}/user/get-by-rol/teacher`).then(data => data.data)
+    }
 }
 
 export default UserService

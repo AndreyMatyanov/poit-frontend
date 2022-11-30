@@ -5,6 +5,8 @@ import DiplomeService from "../../../mobx/services/diplom.service";
 import s from "./TeacherProjectsCheckking.module.sass";
 import EditDiplomeModal from "./EditDiplomeModal";
 import EditDiplomeStageModal from "./EditDiplomeStage/EditDiplomeStageModal";
+import { Timeline, Text } from '@mantine/core';
+import {DatePicker} from "@mantine/dates";
 
 
 
@@ -27,37 +29,24 @@ const DiplomeStage: FC<IGraduationProjectStage> = ({id, graduation_project_id, t
     }
 
     return (
-        <div>
-            <Accordion>
-                <Accordion.Item eventKey={String(id)}>
-                    <Accordion.Header>
-                        {title}
-                    </Accordion.Header>
-                    <Accordion.Body>
-                        <div className={s.title_diplome}>
-                            <div>
-                                <div>{description}</div>
-                                <div>СТАТУС: {is_done ? (<>Сделано</>): (<>Не сделано</>)}</div>
-                                <div>{deadline_date}</div>
-                            </div>
-                            <div>
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="info" id="dropdown-basic">
-                                        Настройки стадии
-                                    </Dropdown.Toggle>
+        <>
+            <Timeline.Item title={title}>
+                {/*<Dropdown>*/}
+                {/*    <Dropdown.Toggle variant="info" id="dropdown-basic">*/}
+                {/*        Настройки стадии*/}
+                {/*    </Dropdown.Toggle>*/}
 
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => setIsModalOpen(true)}>Редактировать</Dropdown.Item>
-                                        <Dropdown.Item href="#/action-2">Удалить</Dropdown.Item>
-                                        <Dropdown.Item onClick={handleSetIsDone}>{!is_done ? (<p>Завершить</p>) : (<p>Отменить</p>)}</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </div>
-                        </div>
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
-            <br/>
+                {/*    <Dropdown.Menu>*/}
+                {/*        <Dropdown.Item onClick={() => setIsModalOpen(true)}>Редактировать</Dropdown.Item>*/}
+                {/*        <Dropdown.Item href="#/action-2">Удалить</Dropdown.Item>*/}
+                {/*        <Dropdown.Item onClick={handleSetIsDone}>{!is_done ? (<p>Завершить</p>) : (<p>Отменить</p>)}</Dropdown.Item>*/}
+                {/*    </Dropdown.Menu>*/}
+                {/*</Dropdown>*/}
+                <Text color="dimmed" size="sm">{description}</Text>
+                <Text size="xs" mt={4}>
+                    new Date(deadline_date)
+                </Text>
+            </Timeline.Item>
             <EditDiplomeStageModal
                 isModalOpened={isModalOpen}
                 handleOpenModal={handleOpenModal}
@@ -71,7 +60,7 @@ const DiplomeStage: FC<IGraduationProjectStage> = ({id, graduation_project_id, t
                     deadline_date: new Date(deadline_date)
                 }}
             />
-        </div>
+        </>
     );
 };
 

@@ -3,6 +3,8 @@ import UserStore from "../../../mobx/stores/user.store";
 import DiplomeService from "../../../mobx/services/diplom.service";
 import TeacherDiplomeProjectsList from "./TeacherDiplomeProjectsList";
 
+
+
 const TeacherProjectsChecking: FC = () => {
     const [diplomes, setDiplomes] = useState([])
     const [courses, setCourses] = useState([])
