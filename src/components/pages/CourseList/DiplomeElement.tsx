@@ -3,6 +3,7 @@ import {Accordion, ProgressBar} from "react-bootstrap";
 import CircularProgress, {
     CircularProgressProps,
 } from '@mui/material/CircularProgress';
+import {IUser} from "../../../mobx/stores/user.store";
 
 export interface IGraduationProject {
     id: number | undefined,
@@ -11,6 +12,16 @@ export interface IGraduationProject {
     theme: string | undefined,
     pattern_of_education: string | undefined,
     stages: Array<IGraduationProjectStage> | undefined,
+}
+
+export interface IGraduationProjectForList {
+    id: number | undefined,
+    user_student_id: number | undefined,
+    percent_of_completion: number | undefined,
+    theme: string | undefined,
+    pattern_of_education: string | undefined,
+    stages: Array<IGraduationProjectStage> | undefined,
+    user: IUser
 }
 
 export interface IGraduationProjectStage {
