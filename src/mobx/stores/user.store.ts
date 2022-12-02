@@ -75,7 +75,9 @@ class UserStore {
     getTeachersList = async () => {
         return this.userService.getTeacherList()
     }
-
+    getCountOfTeacherProjects = async () => {
+        return this.userService.getCountOfTeacherProjects()
+    }
 }
 
 export default new UserStore()

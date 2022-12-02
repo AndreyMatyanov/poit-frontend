@@ -27,6 +27,9 @@ class UserService {
     getTeacherList = async () => {
         return axios.get(`${host}/graduation-project/get-all-teachers-projects`).then(data => data.data)
     }
+    getCountOfTeacherProjects = async () => {
+        return axios.get(`${host}/graduation-project/get-count-of-teachers-projects`).then(data => data.data)
+    }
 }
 
 export default UserService

@@ -3,6 +3,7 @@ import {host} from "../../assets/constants/host.constant";
 import {
     IUpdateGraduationStageProject
 } from "../../components/pages/TeacherProjectsChecking/EditDiplomeStage/EditDiplomeStageModal";
+import {IRequestGraduationProject} from "../../components/pages/TeacherProjects/RequestDiplomeProjectTab";
 
 export interface IUpdateGraduationProject {
     user_student_id: number | undefined;
@@ -31,12 +32,17 @@ const updateDiplome = (id: number | undefined, diplome: IUpdateGraduationProject
     return axios.put(`${host}/graduation-project/${id}`, diplome)
 }
 
+const sendRequset = (obj: IRequestGraduationProject) => {
+    return axios.post(`${host}/graduation-project-request/`, obj)
+}
+
 const DiplomeService = {
     getGraduateProjectByStudentId,
     getGraduateProjectsByUserTeacherId,
     setIsDoneForStage,
     updateDiplome,
-    updateStage
+    updateStage,
+    sendRequset
 }
 
 export default DiplomeService;
