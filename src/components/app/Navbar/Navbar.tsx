@@ -47,21 +47,24 @@ const Navbar: FC = observer(() => {
                 {
                     width > 768 && (
                         <div className={s.navbar__links}>
-                            {UserStore.user?.is_admin == true &&(<div className={s.navbar__link}>
-                                <Link className={s.navbar__link_a} to={'/admin'}>Админ-панель</Link>
-                            </div>)
+                            {UserStore.user?.is_admin == true &&(
+                                <>
+                                    <div className={s.navbar__link}>
+                                        <Link className={s.navbar__link_a} to={'/admin'}>Админ-панель</Link>
+                                    </div>
+                                    <div className={s.navbar__link}>
+                                        <Link className={s.navbar__link_a} to={'/notification'}>Уведомления</Link>
+                                    </div>
+                                    <div className={s.navbar__link}>
+                                        <Link className={s.navbar__link_a} to={'/projects-for-checking'}>Курсовые и дипломные проекты</Link>
+                                    </div>
+                                </>)
                             }
                             <div className={s.navbar__link}>
                                 <Link className={s.navbar__link_a} to={'/users'}>Список пользователей</Link>
                             </div>
                             <div className={s.navbar__link}>
                                 <Link className={s.navbar__link_a} to={'/course-table'}>Список курсовых проектов</Link>
-                            </div>
-                            <div className={s.navbar__link}>
-                                <Link className={s.navbar__link_a} to={'/projects-for-checking'}>Курсовые и дипломные проекты</Link>
-                            </div>
-                            <div className={s.navbar__link}>
-                                <Link className={s.navbar__link_a} to={'/notification'}>Уведомления</Link>
                             </div>
                         </div>
                     )

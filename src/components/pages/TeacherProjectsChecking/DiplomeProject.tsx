@@ -13,9 +13,24 @@ const DiplomeProject: FC<IGraduationProject> = ({id, user_student_id, percent_of
     const [user_student, setUserStudent] = useState<IUser>()
     const [isModalDiplomeEditShow, setIsModalDiplomeEditShow] = useState(false);
 
+    const [active, setActive] = useState<number>(0)
+
 
     useEffect(() => {
-        UserStore.getUserById(String(user_student_id)).then(data => setUserStudent(data))
+        UserStore.getUserById(String(user_student_id)).then(data => setUserStudent(data));
+        let activeTemp = 0;
+        if (stages?.length != undefined){
+            for (let i = 0; i < stages.length; i++){
+                if (stages[i].is_done){
+                    activeTemp++;
+                }
+                else {
+                    break;
+                }
+            }
+            setActive(activeTemp)
+        }
+
     },[])
 
     const handleSetIsDone = (stage_id: number) => {
@@ -68,25 +83,19 @@ const DiplomeProject: FC<IGraduationProject> = ({id, user_student_id, percent_of
                                     </button>
                                 </div>
                             </div>
-                            {/*<Timeline>*/}
-                            {/*    {stages?.map(stage => (*/}
-                            {/*        <Timeline.Item title={stage.title}>*/}
-                            {/*            <Text color="dimmed" size="sm">{stage.description}</Text>*/}
-                            {/*            <Text size="xs" mt={4}>{stage.deadline_date}</Text>*/}
-                            {/*        </Timeline.Item>*/}
-                            {/*    ))}*/}
-                            {/*</Timeline>*/}
-                            <Timeline>
-                            {stages?.map(stage => (
-                                <DiplomeStage
-                                    id={stage.id}
-                                    graduation_project_id={stage.graduation_project_id}
-                                    title={stage.title}
-                                    description={stage.description}
-                                    is_done={stage.is_done}
-                                    deadline_date={stage.deadline_date}
-                                />
-                            ))}
+                            <Timeline active={active}>
+                                {stages?.map(stage => (
+                                    <Timeline.Item title={stage.title}>
+                                        <DiplomeStage
+                                            id={stage.id}
+                                            graduation_project_id={stage.graduation_project_id}
+                                            title={stage.title}
+                                            description={stage.description}
+                                            is_done={stage.is_done}
+                                            deadline_date={stage.deadline_date}
+                                        />
+                                    </Timeline.Item>
+                                ))}
                             </Timeline>
                         </Accordion.Body>
                     </Accordion.Item>

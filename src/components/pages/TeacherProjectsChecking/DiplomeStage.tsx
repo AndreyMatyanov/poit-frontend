@@ -5,7 +5,7 @@ import DiplomeService from "../../../mobx/services/diplom.service";
 import s from "./TeacherProjectsCheckking.module.sass";
 import EditDiplomeModal from "./EditDiplomeModal";
 import EditDiplomeStageModal from "./EditDiplomeStage/EditDiplomeStageModal";
-import { Timeline, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 import {DatePicker} from "@mantine/dates";
 
 
@@ -13,6 +13,7 @@ import {DatePicker} from "@mantine/dates";
 const DiplomeStage: FC<IGraduationProjectStage> = ({id, graduation_project_id, title, description, is_done, deadline_date }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [date, setDate] = useState<Date>(new Date(deadline_date))
 
     const {current: handleOpenModal} = useRef(() => {
         setIsModalOpen(true)
@@ -30,23 +31,21 @@ const DiplomeStage: FC<IGraduationProjectStage> = ({id, graduation_project_id, t
 
     return (
         <>
-            <Timeline.Item title={title}>
-                {/*<Dropdown>*/}
-                {/*    <Dropdown.Toggle variant="info" id="dropdown-basic">*/}
-                {/*        Настройки стадии*/}
-                {/*    </Dropdown.Toggle>*/}
+                <Dropdown>
+                    <Dropdown.Toggle variant="info" id="dropdown-basic">
+                        Настройки стадии
+                    </Dropdown.Toggle>
 
-                {/*    <Dropdown.Menu>*/}
-                {/*        <Dropdown.Item onClick={() => setIsModalOpen(true)}>Редактировать</Dropdown.Item>*/}
-                {/*        <Dropdown.Item href="#/action-2">Удалить</Dropdown.Item>*/}
-                {/*        <Dropdown.Item onClick={handleSetIsDone}>{!is_done ? (<p>Завершить</p>) : (<p>Отменить</p>)}</Dropdown.Item>*/}
-                {/*    </Dropdown.Menu>*/}
-                {/*</Dropdown>*/}
+                    <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => setIsModalOpen(true)}>Редактировать</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Удалить</Dropdown.Item>
+                        <Dropdown.Item onClick={handleSetIsDone}>{!is_done ? (<p>Завершить</p>) : (<p>Отменить</p>)}</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
                 <Text color="dimmed" size="sm">{description}</Text>
                 <Text size="xs" mt={4}>
-                    new Date(deadline_date)
+                    Крайник срок сдачи: {date.getDay() + "." + date.getMonth() + "." + date.getFullYear()}
                 </Text>
-            </Timeline.Item>
             <EditDiplomeStageModal
                 isModalOpened={isModalOpen}
                 handleOpenModal={handleOpenModal}

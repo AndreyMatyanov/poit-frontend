@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './App.module.sass'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Main from "./components/pages/Main/Main";
@@ -12,8 +12,22 @@ import Notification from "./components/pages/Notification/Notification"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TeacherProjectsChecking from "./components/pages/TeacherProjectsChecking/TeacherProjectsChecking";
 import TeacherProjectList from "./components/pages/TeacherProjects/TeacherProjectList";
+import UserStore from "./mobx/stores/user.store";
+import NotFount from "./components/pages/NotFount";
 
 function App() {
+
+    useEffect(() => {
+        if (localStorage.getItem("user") != null){
+            UserStore.setUserMe()
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log(UserStore.user)
+    }, [UserStore.user])
+
+
   return (
       <BrowserRouter>
           <Navbar />
@@ -22,7 +36,8 @@ function App() {
                   <Route path={'/'} element={<Main/>}/>
                   <Route path={'/users'} element={<UserList />}/>
                   <Route path={'/users/:id'} element={<Profile/>}/>
-                  <Route path={'/admin/*'} element={<AdminPage/>}/>
+                  <Route path={'/admin/*'} element={<AdminPage/>}
+                  />
                   <Route path="*" element={<h2>Ресурс не найден</h2>} />
                   <Route path={'/projects/:id'} element={<ProjectList/>} />
                   <Route path={'/projects-for-checking'} element={<TeacherProjectsChecking/>}/>

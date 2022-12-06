@@ -44,15 +44,17 @@ const TeacherProjectList: FC<Test> = () => {
 
     return (
         <>
-            <Button radius="xl" onClick={() => setIsModalOpen(true)}>
-                Отправить запрос дипломной работы
-            </Button>
+            {UserStore.user != null && UserStore.user?.role == 'STUDENT' && (
+                <Button radius="xl" onClick={() => setIsModalOpen(true)}>
+                    Отправить запрос дипломной работы
+                </Button>
+            )}
             <Table striped highlightOnHover withBorder withColumnBorders>
                 <thead>
                 <tr>
                     <th>ФИО</th>
                     <th>Должность</th>
-                    <th>Количество курсовых работ</th>
+                    <th>Количество дипломных работ</th>
                 </tr>
                 </thead>
                 <tbody>

@@ -1,5 +1,7 @@
 import {makeAutoObservable} from "mobx";
 import UserService, {ILoginUser} from "../services/user.service";
+import {IUserStudentCreate} from "../../components/pages/Admin/User/AddStudentModal";
+import {IUserTeacherCreate} from "../../components/pages/Admin/User/AddTeacherModal";
 
 export interface IUser {
     id: string
@@ -39,18 +41,31 @@ class UserStore {
         return this.isAdmin
     }
 
+    getMe = () => {
+        return this.userService.getMe()
+    }
+
+    setUserMe = async () => {
+        const resUser = await this.userService.getMe()
+        this.user = resUser.data
+        this.setAdminValue()
+    }
+
     setAdminValue = () => {
         this.isAdmin = this.user?.is_admin == true
     }
 
     login = async (user: ILoginUser) => {
         const res = await this.userService.login(user)
-        this.user = res.data
+        localStorage.setItem("user", res.data)
+        const resUser = await this.userService.getMe()
+        this.user = resUser.data
         this.setAdminValue()
     }
 
     logout = async () => {
-        await this.userService.logout()
+        localStorage.removeItem('user')
+        // await this.userService.logout()
         this.user = null
         this.isAdmin = false
     }
@@ -77,6 +92,15 @@ class UserStore {
     }
     getCountOfTeacherProjects = async () => {
         return this.userService.getCountOfTeacherProjects()
+    }
+    getUsersByRole = async (role: string) => {
+        return this.userService.getUsersByRole(role)
+    }
+    createUserStudent = async (userStudentCreate: IUserStudentCreate) => {
+        return this.userService.createUserStudent(userStudentCreate)
+    }
+    createUserTeacher = async (userTeacherCreate: IUserTeacherCreate) => {
+        return this.userService.createUserTeacher(userTeacherCreate)
     }
 }
 
